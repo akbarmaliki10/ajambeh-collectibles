@@ -1,0 +1,65 @@
+export default function Footer() {
+  return (
+    <>
+      {/* Aesthetic Divider */}
+      <div className="max-w-[1440px] mx-auto px-4 md:px-6">
+        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent"></div>
+      </div>
+
+      <footer className="py-12 md:py-20 px-4 md:px-6 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-20">
+          <div className="md:col-span-2">
+            <a className="text-3xl font-black italic tracking-tighter text-[#6dddff] mb-6 block" href="#">Ajambeh Collectibles</a>
+            <p className="text-on-surface-variant max-w-sm leading-relaxed mb-8">
+              The ultimate destination for premium TCG collectors. We provide a secure and authentic marketplace for high-end trading cards.
+            </p>
+            <div className="flex items-center gap-4">
+              <a className="h-12 w-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-all" href="#">
+                <span className="material-symbols-outlined">forum</span>
+              </a>
+              <a className="h-12 w-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-secondary hover:border-secondary/50 transition-all" href="#">
+                <span className="material-symbols-outlined">photo_camera</span>
+              </a>
+              <a className="h-12 w-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-all" href="#">
+                <span className="material-symbols-outlined">play_circle</span>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-lg font-bold mb-6">Navigasi</h4>
+            <ul className="space-y-4">
+              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Market</a></li>
+              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Vault Archive</a></li>
+              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Live Auctions</a></li>
+              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">News &amp; Updates</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-lg font-bold mb-6">Kontak</h4>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-on-surface-variant">
+                <span className="material-symbols-outlined text-primary text-sm">mail</span>
+                hello@ajambeh.com
+              </li>
+              <li className="flex items-center gap-3 text-on-surface-variant">
+                <span className="material-symbols-outlined text-primary text-sm">call</span>
+                +62 812-3456-7890
+              </li>
+              <li className="flex items-start gap-3 text-on-surface-variant">
+                <span className="material-symbols-outlined text-primary text-sm">location_on</span>
+                Neon District Hub, Jakarta, Indonesia
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/40">
+          <p>© 2024 Ajambeh Collectibles. ALL RIGHTS RESERVED.</p>
+          <div className="flex items-center gap-8">
+            <a className="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a className="hover:text-primary transition-colors" href="#">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+}
