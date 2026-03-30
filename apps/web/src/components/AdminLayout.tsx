@@ -1,13 +1,23 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     navigate('/admin/login');
   };
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  // Determine active sidebar item based on current path
+  const isDashboardActive = location.pathname === '/admin/dashboard';
+  const isProdukActive = location.pathname.startsWith('/admin/product');
+
+  const activeClass = "flex items-center gap-3 px-6 py-3 bg-[#9ECAFF]/10 text-[#9ECAFF] rounded-r-full border-l-4 border-[#9ECAFF] font-['Inter'] text-sm font-semibold translate-x-1 transition-all";
+  const inactiveClass = "flex items-center gap-3 px-6 py-3 text-[#E5E2E1]/60 hover:bg-[#2A2A2A] hover:text-[#E5E2E1] font-['Inter'] text-sm font-semibold transition-colors";
 
   return (
     <div className="bg-background text-on-surface min-h-screen selection:bg-primary selection:text-on-primary-container font-body flex">
@@ -28,7 +38,7 @@ export default function AdminLayout() {
       {isMobileMenuOpen && (
         <div 
           className="md:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
         />
       )}
 
@@ -41,26 +51,27 @@ export default function AdminLayout() {
         
         <nav className="flex-1 space-y-2 px-0">
           <Link 
-            to="/admin/dashboard" 
-            className="flex items-center gap-3 px-6 py-3 bg-[#9ECAFF]/10 text-[#9ECAFF] rounded-r-full border-l-4 border-[#9ECAFF] font-['Inter'] text-sm font-semibold translate-x-1 transition-transform"
+            to="/admin/dashboard"
+            onClick={closeMobileMenu}
+            className={isDashboardActive ? activeClass : inactiveClass}
           >
             <span className="material-symbols-outlined">dashboard</span>
             <span>Dashboard</span>
           </Link>
-          <a 
-            href="#" 
-            className="flex items-center gap-3 px-6 py-3 text-[#E5E2E1]/60 hover:bg-[#2A2A2A] hover:text-[#E5E2E1] font-['Inter'] text-sm font-semibold transition-colors disabled opacity-50 cursor-not-allowed"
-            onClick={(e) => e.preventDefault()}
+          <Link 
+            to="/admin/products"
+            onClick={closeMobileMenu}
+            className={isProdukActive ? activeClass : inactiveClass}
           >
             <span className="material-symbols-outlined">inventory_2</span>
             <span>Produk</span>
-          </a>
+          </Link>
         </nav>
         
         <div className="mt-auto px-0 border-t border-outline-variant/10 pt-4">
           <a 
             href="#" 
-            className="flex items-center gap-3 px-6 py-3 text-[#E5E2E1]/60 hover:bg-[#2A2A2A] hover:text-[#E5E2E1] font-['Inter'] text-sm font-semibold transition-colors disabled opacity-50 cursor-not-allowed"
+            className="flex items-center gap-3 px-6 py-3 text-[#E5E2E1]/60 hover:bg-[#2A2A2A] hover:text-[#E5E2E1] font-['Inter'] text-sm font-semibold transition-colors opacity-50 cursor-not-allowed"
             onClick={(e) => e.preventDefault()}
           >
             <span className="material-symbols-outlined">settings</span>

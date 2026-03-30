@@ -7,6 +7,7 @@ import AdminLoginPage from './pages/AdminLoginPage';
 import AdminLayout from './components/AdminLayout';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminAddProductPage from './pages/AdminAddProductPage';
+import AdminProductsPage from './pages/AdminProductsPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         {/* Admin Dashboard Routes wrapped in AdminLayout */}
         <Route element={<AdminLayout />}>
           <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+          <Route path="/admin/products" element={<AdminProductsPage />} />
           <Route path="/admin/product/add" element={<AdminAddProductPage />} />
         </Route>
         

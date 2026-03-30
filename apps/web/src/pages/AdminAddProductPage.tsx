@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-
+import { useState, useRef } from 'react';
 export default function AdminAddProductPage() {
   const navigate = useNavigate();
+  const [stock, setStock] = useState(1);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleCancel = () => {
     navigate('/admin/dashboard');
@@ -10,7 +13,7 @@ export default function AdminAddProductPage() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     alert('Mock Save Success! (Backend API not connected)');
-    navigate('/admin/dashboard');
+    navigate('/admin/products');
   };
 
   return (
@@ -127,18 +130,27 @@ export default function AdminAddProductPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Stok Tersedia</label>
-                <div className="flex items-center bg-surface-container-highest/30 border border-outline-variant/10 rounded-lg overflow-hidden h-[54px] md:h-[58px]">
-                  <button type="button" className="w-16 h-full flex items-center justify-center hover:bg-surface-bright active:bg-surface-container-highest transition-colors text-on-surface-variant hover:text-primary border-r border-outline-variant/10">
-                    <span className="material-symbols-outlined">remove</span>
+                <div className="flex items-stretch bg-surface-container-highest/30 border border-outline-variant/10 rounded-md overflow-hidden" style={{ borderRadius: '0.5rem' }}>
+                  <button 
+                    type="button" 
+                    onClick={() => setStock(Math.max(0, stock - 1))}
+                    className="w-14 md:w-16 min-h-[56px] md:min-h-[64px] flex items-center justify-center hover:bg-surface-bright active:bg-surface-container-highest transition-colors text-on-surface-variant hover:text-primary border-r border-outline-variant/10 shrink-0"
+                  >
+                    <span className="material-symbols-outlined text-2xl">remove</span>
                   </button>
                   <input 
                     type="number" 
                     min="0"
-                    defaultValue="1"
-                    className="flex-1 bg-transparent border-none text-center font-bold text-lg md:text-xl text-on-surface focus:ring-0 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" 
+                    value={stock}
+                    onChange={(e) => setStock(Math.max(0, parseInt(e.target.value) || 0))}
+                    className="flex-1 bg-transparent border-none text-center font-bold text-lg md:text-xl text-on-surface focus:ring-0 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none min-w-0" 
                   />
-                  <button type="button" className="w-16 h-full flex items-center justify-center hover:bg-surface-bright active:bg-surface-container-highest transition-colors text-on-surface-variant hover:text-primary border-l border-outline-variant/10">
-                    <span className="material-symbols-outlined">add</span>
+                  <button 
+                    type="button" 
+                    onClick={() => setStock(stock + 1)}
+                    className="w-14 md:w-16 min-h-[56px] md:min-h-[64px] flex items-center justify-center hover:bg-surface-bright active:bg-surface-container-highest transition-colors text-on-surface-variant hover:text-primary border-l border-outline-variant/10 shrink-0"
+                  >
+                    <span className="material-symbols-outlined text-2xl">add</span>
                   </button>
                 </div>
               </div>
@@ -184,11 +196,30 @@ export default function AdminAddProductPage() {
               <span className="material-symbols-outlined text-primary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>image</span>
               <h3 className="text-xl font-bold font-headline text-on-surface">Media</h3>
             </div>
-            <div className="group relative border-2 border-dashed border-outline-variant/20 rounded-lg p-8 text-center hover:border-primary/50 transition-all cursor-pointer bg-surface-container-highest/10 hover:bg-surface-container-highest/30">
-              <div className="relative z-10 flex flex-col items-center">
-                <span className="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors mb-4 block">cloud_upload</span>
-                <p className="text-sm font-semibold text-on-surface mb-1">Upload Card Image</p>
-                <p className="text-[10px] text-on-surface-variant uppercase tracking-widest">JPG, PNG up to 10MB</p>
+            <div 
+              className="group relative border-2 border-dashed border-outline-variant/20 rounded-lg p-8 text-center hover:border-primary/50 transition-all cursor-pointer bg-surface-container-highest/10 hover:bg-surface-container-highest/30"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input 
+                ref={fileInputRef}
+                type="file" 
+                accept="image/jpeg,image/png" 
+                className="hidden" 
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) setUploadedFileName(file.name);
+                }}
+              />
+              <div className="relative z-10 flex flex-col items-center pointer-events-none">
+                <span className="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors mb-4 block">
+                  {uploadedFileName ? 'check_circle' : 'cloud_upload'}
+                </span>
+                <p className="text-sm font-semibold text-on-surface mb-1">
+                  {uploadedFileName || 'Upload Card Image'}
+                </p>
+                <p className="text-[10px] text-on-surface-variant uppercase tracking-widest">
+                  {uploadedFileName ? 'Click to change' : 'JPG, PNG up to 10MB'}
+                </p>
               </div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.02] transition-opacity bg-primary rounded-lg pointer-events-none"></div>
             </div>
