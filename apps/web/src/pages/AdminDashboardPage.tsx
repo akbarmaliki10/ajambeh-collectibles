@@ -129,7 +129,7 @@ export default function AdminDashboardPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-1">
-                    <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
+                    <button onClick={() => navigate('/admin/product/edit/1')} className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
                       <span className="material-symbols-outlined text-lg">edit</span>
                     </button>
                     <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-secondary">
@@ -164,7 +164,7 @@ export default function AdminDashboardPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-1">
-                    <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
+                    <button onClick={() => navigate('/admin/product/edit/2')} className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
                       <span className="material-symbols-outlined text-lg">edit</span>
                     </button>
                     <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-secondary">
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-1">
-                    <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
+                    <button onClick={() => navigate('/admin/product/edit/3')} className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-primary">
                       <span className="material-symbols-outlined text-lg">edit</span>
                     </button>
                     <button className="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant hover:text-secondary">

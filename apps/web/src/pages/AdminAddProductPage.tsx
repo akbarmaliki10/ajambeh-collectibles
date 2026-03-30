@@ -1,8 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
+
+const formatNumber = (num: number | string): string => {
+  const n = typeof num === 'string' ? num : String(num);
+  return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
 export default function AdminAddProductPage() {
   const navigate = useNavigate();
   const [stock, setStock] = useState(1);
+  const [priceRaw, setPriceRaw] = useState('');
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -141,9 +148,12 @@ export default function AdminAddProductPage() {
                   <input 
                     type="number" 
                     min="0"
-                    value={stock}
-                    onChange={(e) => setStock(Math.max(0, parseInt(e.target.value) || 0))}
-                    className="flex-1 bg-transparent border-none text-center font-bold text-lg md:text-xl text-on-surface focus:ring-0 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none min-w-0" 
+                    value={formatNumber(stock)}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/\./g, '');
+                      setStock(Math.max(0, parseInt(raw) || 0));
+                    }}
+                    className="flex-1 bg-transparent border-none text-center font-bold text-lg md:text-xl text-on-surface focus:ring-0 min-w-0" 
                   />
                   <button 
                     type="button" 
@@ -176,10 +186,15 @@ export default function AdminAddProductPage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-primary">Rp</span>
                   <input 
                     required
-                    type="number" 
-                    min="0"
+                    type="text"
+                    inputMode="numeric"
                     placeholder="0"
-                    className="w-full bg-surface-container-highest/30 border border-outline-variant/10 rounded-lg py-5 pl-12 pr-4 text-2xl font-black text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-high transition-all placeholder:text-on-surface-variant/20 tracking-tighter appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" 
+                    value={priceRaw ? formatNumber(priceRaw) : ''}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/[^0-9]/g, '');
+                      setPriceRaw(raw === '' ? '' : String(parseInt(raw)));
+                    }}
+                    className="w-full bg-surface-container-highest/30 border border-outline-variant/10 rounded-lg py-5 pl-12 pr-4 text-2xl font-black text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-high transition-all placeholder:text-on-surface-variant/20 tracking-tighter" 
                   />
                 </div>
               </div>
