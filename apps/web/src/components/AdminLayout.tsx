@@ -1,12 +1,17 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useUser } from '@stackframe/react';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const user = useUser();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    if (user) {
+      await user.signOut();
+    }
     navigate('/admin/login');
   };
 
@@ -46,7 +51,9 @@ export default function AdminLayout() {
       <aside className={`w-64 fixed left-0 top-0 bg-[#1C1B1B] flex flex-col h-screen py-6 shadow-2xl shadow-black/50 z-50 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="px-6 mb-10">
           <h1 className="text-lg font-bold text-[#FFB4AA] font-headline">Ajambeh Panel</h1>
-          <p className="text-xs text-on-surface-variant font-medium opacity-70">Collectibles Manager</p>
+          <p className="text-xs text-on-surface-variant font-medium opacity-70">
+            {user?.primaryEmail || 'Collectibles Manager'}
+          </p>
         </div>
         
         <nav className="flex-1 space-y-2 px-0">
