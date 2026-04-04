@@ -1,6 +1,7 @@
 import { stackClientApp } from '../stack/client';
 
 // Base API functions for communicating with the Go backend
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/+$/, '');
 
 async function getAuthHeaders(): Promise<Record<string, string>> {
   try {
@@ -19,7 +20,7 @@ async function getAuthHeaders(): Promise<Record<string, string>> {
 
 export async function apiFetch<T = unknown>(url: string, options: RequestInit = {}): Promise<T> {
   const authHeaders = await getAuthHeaders();
-  const response = await fetch(url, {
+  const response = await fetch(`${API_BASE_URL}${url}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ export async function apiFetch<T = unknown>(url: string, options: RequestInit = 
 
 export async function apiUpload<T = unknown>(url: string, formData: FormData): Promise<T> {
   const authHeaders = await getAuthHeaders();
-  const response = await fetch(url, {
+  const response = await fetch(`${API_BASE_URL}${url}`, {
     method: 'POST',
     headers: authHeaders,
     body: formData,
