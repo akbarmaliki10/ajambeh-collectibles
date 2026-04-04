@@ -84,7 +84,6 @@ export default function CatalogGrid() {
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <span className="material-symbols-outlined text-5xl text-error mb-4">error</span>
           <h2 className="font-headline text-2xl font-bold mb-2">Gagal memuat produk</h2>
-          <p className="text-outline mb-6">Pastikan API berjalan di localhost:8080</p>
           <button
             onClick={() => window.location.reload()}
             className="px-8 py-3 rounded-full border border-primary text-primary font-bold hover:bg-primary/5 transition-all"

@@ -2,3 +2,4 @@
 *.exe
 vendor/
 .env
+node_modules/
