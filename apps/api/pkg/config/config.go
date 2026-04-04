@@ -18,6 +18,7 @@ type Config struct {
 	StackProjectID     string
 	SupabaseURL        string
 	SupabaseServiceKey string
+	AllowedOrigins     string
 }
 
 // LoadConfig loads the environment variables from .env file and OS env
@@ -37,6 +38,7 @@ func LoadConfig() *Config {
 		StackProjectID:     getEnv("STACK_PROJECT_ID", ""),
 		SupabaseURL:        getEnv("SUPABASE_URL", ""),
 		SupabaseServiceKey: getEnv("SUPABASE_SERVICE_KEY", ""),
+		AllowedOrigins:     getEnv("ALLOWED_ORIGINS", "*"),
 	}
 }
 

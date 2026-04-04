@@ -59,6 +59,9 @@ func main() {
 	// 4. Setup Gin Router
 	router := gin.Default()
 
+	// 4a. CORS — must come before any route or middleware
+	router.Use(middleware.CORSMiddleware(cfg.AllowedOrigins))
+
 	// 5. Setup Layers
 	timeoutContext := time.Duration(10) * time.Second
 
